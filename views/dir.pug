@@ -1,0 +1,19 @@
+each domain in domains
+  domain(name=domain.name)
+    params
+      each param in domain.params
+        param(name=param.name,value=param.value)
+    variables
+      each v in domain.vars
+        variable(name=v.name,value=v.value)
+    groups
+      group(name='default')
+        users
+          each u in domain.users
+            user(id=u.id)
+              params
+                each param in u.params
+                  param(name=param.name,value=param.value)
+              variables
+                each v in u.vars
+                  variable(name=v.name,value=v.value)

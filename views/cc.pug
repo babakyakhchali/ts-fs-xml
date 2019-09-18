@@ -1,0 +1,18 @@
+configuration(name='callcenter.conf', description='CallCenter')
+  settings
+    // <param name="odbc-dsn" value="dsn:user:pass"/>
+    // <param name="dbname" value="/dev/shm/callcenter.db"/>
+    // <param name="cc-instance-id" value="single_box"/>
+    each setting in settings
+      param(name=setting.name, value=setting.value)    
+  queues
+    each queue in queues
+      queue(name=queue.name)
+        each param in queue.params
+          param(name=param.name, value=param.value)
+  agents
+    each agent in agents
+      agent(name=agent.name,type='callback',contact='[leg_timeout=10]user/'+agent.name,status='Available',max-no-answer='3',wrap-up-time='10',reject-delay-time='10',busy-delay-time='60')/
+  tiers    
+    each tier in tiers
+      tier(agent=tier.agent,queue=tier.queue,level='1',position='1')/        

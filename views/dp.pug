@@ -1,0 +1,8 @@
+each ctx in ctxs
+  context(name=ctx.name)
+    each e in ctx.exts
+      extension(name=e.name)
+        each c in e.conds
+          condition(field=c.field,expression=c.exp)
+            each a in c.apps
+              action(application=a.app,data=a.data)/
